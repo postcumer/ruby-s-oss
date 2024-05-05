@@ -1,7 +1,7 @@
-/* SPDX-License-Identifier: GPL-2.0 */
+// SPDX-License-Identifier: GPL-2.0
 /*
  * Copyright (c) 2019 MediaTek Inc.
-*/
+ */
 
 #include <linux/delay.h>
 #include <linux/sched.h>
@@ -12,7 +12,6 @@
 #include <linux/mutex.h>
 #include <linux/string.h>
 #include <linux/printk.h>
-#include <linux/sched/clock.h>
 #include <stdarg.h>
 #include <linux/slab.h>
 #include "ddp_mmp.h"
@@ -886,6 +885,7 @@ int dprec_logger_get_result_string_all(char *stringbuf, int strlen)
 
 	return n;
 }
+
 
 int dprec_logger_get_result_value(enum DPREC_LOGGER_ENUM source,
 	struct fpsEx *fps)
