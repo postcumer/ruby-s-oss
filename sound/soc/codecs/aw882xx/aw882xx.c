@@ -680,7 +680,6 @@ static int aw882xx_monitor_get(struct snd_kcontrol *kcontrol,
 		aw_componet_codec_ops.kcontrol_codec(kcontrol);
 	struct aw882xx *aw882xx =
 		aw_componet_codec_ops.codec_get_drvdata(codec);
-	struct aw_device *aw_dev = aw882xx->aw_pa;
 
 	ucontrol->value.integer.value[0] =
 			aw_dev->monitor_desc.monitor_cfg.monitor_switch;
@@ -698,7 +697,6 @@ static int aw882xx_monitor_set(struct snd_kcontrol *kcontrol,
 		aw_componet_codec_ops.kcontrol_codec(kcontrol);
 	struct aw882xx *aw882xx =
 		aw_componet_codec_ops.codec_get_drvdata(codec);
-	struct aw_device *aw_dev = aw882xx->aw_pa;
 	uint32_t ctrl_value = 0;
 
 	ctrl_value = ucontrol->value.integer.value[0];
@@ -969,7 +967,6 @@ static void aw882xx_interrupt_work(struct work_struct *work)
 static void aw882xx_interrupt_work(struct work_struct *work)
 {
 	struct aw882xx *aw882xx = container_of(work, struct aw882xx, interrupt_work.work);
-	struct aw_device *aw_dev = aw882xx->aw_pa;
 	unsigned int reg_value = 0;
 
 	aw882xx_i2c_read(aw882xx, aw_dev->sysst_desc.reg, &reg_value);
@@ -997,7 +994,6 @@ static int aw882xx_set_rx_en(struct snd_kcontrol *kcontrol,
 	aw_dev_dbg(aw882xx->dev, "ucontrol->value.integer.value[0]=%ld",
 				ucontrol->value.integer.value[0]);
 
-	aw_dev = aw882xx->aw_pa;
 	ctrl_value = ucontrol->value.integer.value[0];
 
 	if (aw882xx->pstream) {
@@ -1025,7 +1021,6 @@ static int aw882xx_get_rx_en(struct snd_kcontrol *kcontrol,
 	struct aw882xx *aw882xx =
 		aw_componet_codec_ops.codec_get_drvdata(codec);
 
-	aw_dev = aw882xx->aw_pa;
 
 	if (aw882xx->pstream) {
 		ret = aw882xx_dev_get_afe_module_en(AW_RX_MODULE, &ctrl_value);
@@ -1057,7 +1052,6 @@ static int aw882xx_set_tx_en(struct snd_kcontrol *kcontrol,
 	aw_dev_dbg(aw882xx->dev, "ucontrol->value.integer.value[0]=%ld",
 			ucontrol->value.integer.value[0]);
 
-	aw_dev = aw882xx->aw_pa;
 	ctrl_value = ucontrol->value.integer.value[0];
 
 	if (aw882xx->pstream) {
@@ -1084,7 +1078,6 @@ static int aw882xx_get_tx_en(struct snd_kcontrol *kcontrol,
 		aw_componet_codec_ops.kcontrol_codec(kcontrol);
 	struct aw882xx *aw882xx =
 		aw_componet_codec_ops.codec_get_drvdata(codec);
-	aw_dev = aw882xx->aw_pa;
 
 	if (aw882xx->pstream) {
 		ret = aw882xx_dev_get_afe_module_en(AW_TX_MODULE, &ctrl_value);
@@ -1117,7 +1110,6 @@ static int aw882xx_set_copp_en(struct snd_kcontrol *kcontrol,
 	aw_dev_dbg(aw882xx->dev, "ucontrol->value.integer.value[0]=%ld",
 			ucontrol->value.integer.value[0]);
 
-	aw_dev = aw882xx->aw_pa;
 	ctrl_value = ucontrol->value.integer.value[0];
 
 	if (aw882xx->pstream) {
@@ -1175,7 +1167,6 @@ static int aw882xx_set_spin(struct snd_kcontrol *kcontrol,
 	aw_dev_dbg(aw882xx->dev, "ucontrol->value.integer.value[0]=%ld",
 			ucontrol->value.integer.value[0]);
 
-	aw_dev = aw882xx->aw_pa;
 	ctrl_value = ucontrol->value.integer.value[0];
 	if (ctrl_value >= ARRAY_SIZE(aw882xx_spin)) {
 		aw_dev_err(aw_dev->dev, "spin value %d is unsupport", ctrl_value);
@@ -1199,7 +1190,6 @@ static int aw882xx_get_spin(struct snd_kcontrol *kcontrol,
 		aw_componet_codec_ops.codec_get_drvdata(codec);
 	uint32_t ctrl_value = 0;
 
-	aw_dev = aw882xx->aw_pa;
 	ret = aw882xx_spin_value_get(aw_dev, &ctrl_value, aw882xx->pstream);
 	if (ret) {
 		aw_dev_err(aw882xx->dev, "get spin failed!, ret = %d", ret);
